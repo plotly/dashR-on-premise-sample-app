@@ -1,4 +1,4 @@
-library(dasher)
+library(dashR)
 
 # configure the underlying R server
 server <- fiery::Fire$new(
@@ -6,7 +6,7 @@ server <- fiery::Fire$new(
   port = as.integer(Sys.getenv('PORT'))
 )
 
-# Name your dasher app.
+# Name your dashR app.
 # 
 # This name determines the URL of your deployed app,
 # so it can't contain any spaces, capitalizations, or special characters
@@ -38,29 +38,29 @@ if (isOnPremise) {
     sprintf("%s://%s.%s", domainParts[1], app$name, domainParts[2])
   }
   
-  # TODO: implment dasher::auth_plotly() and dasher::auth_basic()!
-  # - should these be methods (i.e., app$auth_plotly())?
-  app <- auth_plotly(
-    app,
-    Sys.getenv("DASH_APP_NAME", app$name),
-    Sys.getenv("DASH_APP_PRIVACY", "public"),
-    app_url
-  )
+  # TODO: implement Plotly Auth!
+  stop("Not yet supported", call. = FALSE)
+  #app <- auth_plotly(
+  #  app,
+  #  Sys.getenv("DASH_APP_NAME", app$name),
+  #  Sys.getenv("DASH_APP_PRIVACY", "public"),
+  #  app_url
+  #)
 }
 
 
 # ---------------------------------------------------------------
-# The actual dasher app logic goes here
+# The actual dashR app logic goes here
 # ---------------------------------------------------------------
 
 app$layout_set(
-    htmlH2('Hello World'),
-    coreDropdown(
-        id = 'dropdown',
-        options = c('LA', 'NYC', 'MTL'),
-        value = 'LA'
-    ),
-    htmlDiv(id = 'display-value')
+  htmlH2('Hello World'),
+  coreDropdown(
+    id = 'dropdown',
+    options = c('LA', 'NYC', 'MTL'),
+    value = 'LA'
+  ),
+  htmlDiv(id = 'display-value')
 )
 
 app$callback(
