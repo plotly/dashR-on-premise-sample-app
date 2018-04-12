@@ -1,3 +1,7 @@
+# Load on-premise config
+# TODO: use an .Renviron file instead?
+source("config.R")
+
 library(dashR)
 
 # configure the underlying R server
