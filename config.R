@@ -10,7 +10,7 @@ Sys.setenv("PATH_BASED_ROUTING" = "TRUE")
 # Fill in with your Plotly On-Premise username
 Sys.setenv("PLOTLY_USERNAME" = "your-plotly-username")
 
-# Fill in with your Plotly On-Premise API key
+# Fill in with your Plotly on-premise API key
 # See <your-plotly-server>/settings/api to generate a key
 # If you have already created a key and saved it on your own machine
 # (from the Plotly-Python library instructions at https://plot.ly/python/getting-started)
