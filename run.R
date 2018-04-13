@@ -1,6 +1,6 @@
 # Load on-premise config
 # TODO: use an .Renviron file instead?
-source("config.R")
+# source("config.R")
 
 library(dashR)
 
@@ -16,7 +16,7 @@ server <- fiery::Fire$new(
 # so it can't contain any spaces, capitalizations, or special characters
 #
 # This name MUST match the name that you specified in the App Manager
-Sys.setenv("DASH_APP_NAME" = "name-of-your-dash-app")
+Sys.setenv("DASH_APP_NAME" = "dashr-on-premise-sample-app")
 
 app <- Dash$new(
   name = Sys.getenv("DASH_APP_NAME"),
@@ -27,30 +27,30 @@ app <- Dash$new(
 # If on-premise, modify the app's config and add authentication 
 # ---------------------------------------------------------------------------
 
-isOnPremise <- "DYNO" %in% names(Sys.getenv())
-isPathBased <- toupper(Sys.getenv("PATH_BASED_ROUTING")) == "TRUE"
-
-if (isOnPremise) {
-  domain <- Sys.getenv("PLOTY_DASH_DOMAIN")
-  
-  app_url <- if (isPathBased) {
-    if (identical(app$name, 'name-of-your-dash-app')) stop('Please enter the name of your dash app inside config.R')
-    app$config_set(requests_pathname_prefix = sprintf("/%s/", app$name))
-    sprint("%s/%s", sub("/+$", "", domain), app$name)
-  } else {
-    domainParts <- strsplit(domain, "://")[[1]]
-    sprintf("%s://%s.%s", domainParts[1], app$name, domainParts[2])
-  }
-  
-  # TODO: implement Plotly Auth!
-  stop("Not yet supported", call. = FALSE)
-  #app <- auth_plotly(
-  #  app,
-  #  Sys.getenv("DASH_APP_NAME", app$name),
-  #  Sys.getenv("DASH_APP_PRIVACY", "public"),
-  #  app_url
-  #)
-}
+#isOnPremise <- "DYNO" %in% names(Sys.getenv())
+#isPathBased <- toupper(Sys.getenv("PATH_BASED_ROUTING")) == "TRUE"
+#
+#if (isOnPremise) {
+#  domain <- Sys.getenv("PLOTY_DASH_DOMAIN")
+#  
+#  app_url <- if (isPathBased) {
+#    if (identical(app$name, 'name-of-your-dash-app')) stop('Please enter the name of your dash app inside config.R')
+#    app$config_set(requests_pathname_prefix = sprintf("/%s/", app$name))
+#    sprint("%s/%s", sub("/+$", "", domain), app$name)
+#  } else {
+#    domainParts <- strsplit(domain, "://")[[1]]
+#    sprintf("%s://%s.%s", domainParts[1], app$name, domainParts[2])
+#  }
+#  
+#  # TODO: implement Plotly Auth!
+#  stop("Not yet supported", call. = FALSE)
+#  #app <- auth_plotly(
+#  #  app,
+#  #  Sys.getenv("DASH_APP_NAME", app$name),
+#  #  Sys.getenv("DASH_APP_PRIVACY", "public"),
+#  #  app_url
+#  #)
+#}
 
 
 # ---------------------------------------------------------------
