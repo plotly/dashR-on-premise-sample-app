@@ -1,75 +1,27 @@
-# Load on-premise config
-# TODO: use an .Renviron file instead?
-# source("config.R")
+library(dash)
+library(dashCoreComponents)
+library(dashHtmlComponents)
 
-library(dashR)
+app <- Dash$new()
 
-# configure the underlying R server
-server <- fiery::Fire$new(
-  host = '0.0.0.0', 
-  port = as.integer(Sys.getenv('PORT'))
+app$layout(
+  htmlDiv(
+    list(
+      dccInput(id='input-1-state', type='text', value='Montreal'),
+      dccInput(id='input-2-state', type='text', value='Canada'),
+      htmlButton(id='submit-button', n_clicks=0, children='Submit'),
+      htmlDiv(id='output-state')
+    )
+  )
 )
 
-# Name your dashR app.
-# 
-# This name determines the URL of your deployed app,
-# so it can't contain any spaces, capitalizations, or special characters
-#
-# This name MUST match the name that you specified in the App Manager
-Sys.setenv("DASH_APP_NAME" = "dashr-on-premise-sample-app")
 
-app <- Dash$new(
-  name = Sys.getenv("DASH_APP_NAME"),
-  server = server
-)
-
-# ---------------------------------------------------------------------------
-# If on-premise, modify the app's config and add authentication 
-# ---------------------------------------------------------------------------
-
-#isOnPremise <- "DYNO" %in% names(Sys.getenv())
-#isPathBased <- toupper(Sys.getenv("PATH_BASED_ROUTING")) == "TRUE"
-#
-#if (isOnPremise) {
-#  domain <- Sys.getenv("PLOTY_DASH_DOMAIN")
-#  
-#  app_url <- if (isPathBased) {
-#    if (identical(app$name, 'name-of-your-dash-app')) stop('Please enter the name of your dash app inside config.R')
-#    app$config_set(requests_pathname_prefix = sprintf("/%s/", app$name))
-#    sprint("%s/%s", sub("/+$", "", domain), app$name)
-#  } else {
-#    domainParts <- strsplit(domain, "://")[[1]]
-#    sprintf("%s://%s.%s", domainParts[1], app$name, domainParts[2])
-#  }
-#  
-#  # TODO: implement Plotly Auth!
-#  stop("Not yet supported", call. = FALSE)
-#  #app <- auth_plotly(
-#  #  app,
-#  #  Sys.getenv("DASH_APP_NAME", app$name),
-#  #  Sys.getenv("DASH_APP_PRIVACY", "public"),
-#  #  app_url
-#  #)
-#}
-
-
-# ---------------------------------------------------------------
-# The actual dashR app logic goes here
-# ---------------------------------------------------------------
-
-app$layout_set(
-  htmlH2('Hello World'),
-  coreDropdown(
-    id = 'dropdown',
-    options = c('LA', 'NYC', 'MTL'),
-    value = 'LA'
-  ),
-  htmlDiv(id = 'display-value')
-)
-
-app$callback(
-  function(value = input('dropdown')) paste("You have selected", value),
-  output('display-value')
-)
+app$callback(output(id = 'output-state', property = 'children'),
+             list(input(id = 'submit-button', property = 'n_clicks'),
+                  state(id = 'input-1-state', property = 'value'),
+                  state(id = 'input-2-state', property = 'value')),
+             function(n_clicks, input1, input2) {
+               sprintf("The Button has been pressed \"%s\" times, Input 1 is \"%s\", and Input 2 is \"%s\"", n_clicks, input1, input2)
+             })
 
 app$run_server()
