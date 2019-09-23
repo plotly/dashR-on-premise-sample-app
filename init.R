@@ -44,7 +44,4 @@ install.packages("https://cloud.r-project.org/src/contrib/Archive/future/future_
 install.packages("https://cloud.r-project.org/src/contrib/routr_0.3.0.tar.gz", type="source", repos=NULL)
 install.packages("https://cloud.r-project.org/src/contrib/fiery_1.1.1.tar.gz", type="source", repos=NULL)
 
-remotes::install_github("plotly/dash-table", ref="042ad65")
-remotes::install_github("plotly/dash-html-components", ref="17da1f4")
-remotes::install_github("plotly/dash-core-components", ref="cc1e654")
 remotes::install_github("plotly/dashR", upgrade=TRUE)
