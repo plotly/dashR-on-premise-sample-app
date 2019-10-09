@@ -9,4 +9,4 @@ options(repos=r)
 # ======================================================================
 
 # packages go here
-remotes::install_github("plotly/dashR", dependencies=TRUE)
+remotes::install_github("plotly/dashR", dependencies=TRUE, upgrade=TRUE)
