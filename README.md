@@ -1,7 +1,6 @@
-## Dash On-Premise Sample App Versions 3.0.0+
+## Dash On-Premise Sample App Versions 3.3.0+
 
-This repository contains a simple Dash app that can be deployed as-is on your [Dash Deployment Server](https://plot.ly/dash/pricing/) server. This application is configured to deploy on Dash Deployment Server versions 3.0.0
-and above. 
+This repository contains a simple Dash app that can be deployed as-is on your [Dash Deployment Server](https://plot.ly/dash/pricing/) server. This application is configured to deploy on Dash Deployment Server versions 3.3.0 and above. 
 
 #### Deployment Instructions
 
