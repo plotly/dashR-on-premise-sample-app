@@ -18,7 +18,26 @@ app$layout(
       dccInput(id='input-1-state', type='text', value='Montreal'),
       dccInput(id='input-2-state', type='text', value='Canada'),
       htmlButton(id='submit-button', n_clicks=0, children='Submit'),
-      htmlDiv(id='output-state')
+      htmlDiv(id='output-state'),
+      dccGraph(id='graph',
+        figure=list(
+          data=list(
+            list(
+              x=list(1, 2, 3),
+              y=list(4, 1, 2),
+              type='bar',
+              name='SF'
+            ),
+            list(
+              x=list(1, 2, 3),
+              y=list(2, 4, 5),
+              type='bar',
+              name='Montr\U{00E9}al'
+            )
+          ),
+          layout = list(title='Dash Data Visualization')
+        )
+      )
     )
   )
 )
