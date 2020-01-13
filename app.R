@@ -2,6 +2,14 @@ library(dash)
 library(dashCoreComponents)
 library(dashHtmlComponents)
 
+appName <- Sys.getenv("DASH_APP_NAME")
+if (appName != "") {
+  pathPrefix <- sprintf("/%s/", appName)
+
+  Sys.setenv(DASH_ROUTES_PATHNAME_PREFIX = pathPrefix,
+             DASH_REQUESTS_PATHNAME_PREFIX = pathPrefix)
+}
+
 app <- Dash$new()
 
 app$layout(
@@ -43,4 +51,8 @@ app$callback(output(id = 'output-state', property = 'children'),
                sprintf("The Button has been pressed \"%s\" times, Input 1 is \"%s\", and Input 2 is \"%s\"", n_clicks, input1, input2)
              })
 
-app$run_server(host = "0.0.0.0")
+if (appName != "") {
+  app$run_server(host = "0.0.0.0", port = Sys.getenv('PORT', 8050))
+} else {
+  app$run_server()
+}
