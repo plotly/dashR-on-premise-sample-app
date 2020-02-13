@@ -2,10 +2,6 @@
 # contains placeholders which are inserted by the compile script
 # NOTE: this script is executed in the chroot context; check paths!
 
-r <- getOption("repos")
-r["CRAN"] <- "http://cloud.r-project.org"
-options(repos=r)
-
 # ======================================================================
 
 # packages go here
