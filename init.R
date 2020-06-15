@@ -5,4 +5,4 @@
 # ======================================================================
 
 # packages go here
-remotes::install_github("plotly/dashR", dependencies=TRUE, upgrade=TRUE)
+install.packages("dash")
